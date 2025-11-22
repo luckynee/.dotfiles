@@ -160,7 +160,7 @@
 (electric-pair-mode 1)
 (toggle-frame-maximized)
 (global-display-line-numbers-mode)
-(add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Propo-14"))
+(add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Propo-12"))
 
 ;; File Setting
 
