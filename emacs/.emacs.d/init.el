@@ -232,7 +232,7 @@
   (setq TeX-mode-save-option 'TeX-dir-save-local)
   (setq-default TeX-master nil)
   (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  ;;(add-hook 'LaTeX-mode-hook 'flyspell-mode)
   (add-hook 'LaTeX-mode-hook 'eglot-ensure)
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (add-hook 'LaTeX-mode-hook (lambda ()
@@ -240,6 +240,14 @@
   (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
   (add-hook 'TeX-after-compilation-finished-functions
             #'TeX-revert-document-buffer)
+  ;; Synctex configuration
+  (setq TeX-PDF-mode t)
+  (setq TeX-source-correlate-mode t)
+  (setq TeX-source-correlate-method 'synctex)
+  (setq TeX-source-correlate-start-server t)
+  (setq TeX-command-extra-options "--synctex=1")
+(with-eval-after-load 'tex
+  (add-hook 'pdf-view-mode-hook 'TeX-source-correlate-show-result))
 )
 
 (with-eval-after-load 'eglot

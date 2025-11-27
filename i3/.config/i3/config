@@ -45,6 +45,12 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
+# Toggle touchpad
+bindsym XF86AudioPrev exec --no-startup-id xinput disable "ELAN0406:00 04F3:3297 Touchpad"
+bindsym XF86AudioNext exec --no-startup-id xinput enable "ELAN0406:00 04F3:3297 Touchpad"
+# Invert touchpad scrool
+exec --no-startup-id xinput set-prop 'ELAN0406:00 04F3:3297 Touchpad' 'Synaptics Scrolling Distance' -119 -119
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -198,4 +204,5 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+
 
