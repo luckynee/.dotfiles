@@ -7,3 +7,6 @@ export EDITOR=emacs
 
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
+
+# GPG Signing Configuration
+export GPG_TTY=$(tty)

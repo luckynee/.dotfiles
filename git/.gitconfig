@@ -1,3 +1,9 @@
 [user]
-	email = janspurba64@gmail.com
+	email = luckymahendra080503@gmail.com
 	name = luckynee
+	signingkey = 5B61512AE4ABAEBF
+
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true

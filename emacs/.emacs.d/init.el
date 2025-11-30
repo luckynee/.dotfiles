@@ -195,6 +195,18 @@
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(slang-mode . ("slangd"))))
 
+;; Yaml
+(use-package yaml-mode
+  :ensure t)
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs '(yaml-mode . ("yaml-language-server" "--stdio"))))
+
+;; Dockerfile
+(use-package dockerfile-mode
+  :ensure t)
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs '(dockerfile-mode . ("docker-langserver" "--stdio"))))
+
 ;; -------------------------------------KEYMAP------------------------------
 
 
@@ -215,6 +227,15 @@
                   (interactive)
                   (let((default-directory "~/"))
                     (call-interactively 'find-file))))
+
+;; Open terminal emulator in current working directory
+(defvar my/terminal-emulator "kitty")
+
+(defun my/open-terminal-emulator()
+  "Open terminal emulator in current directory"
+  (interactive)
+  (start-process "terminal-emulator" nil my/terminal-emulator))
+(global-set-key (kbd "C-c t") 'my/open-terminal-emulator)
 
 
 ;; -------------------------------------ARDUINO----------------------------
