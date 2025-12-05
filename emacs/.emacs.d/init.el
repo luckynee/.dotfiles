@@ -184,6 +184,11 @@
   (setq c-basic-offset 4))
 (add-hook 'c-mode-common-hook 'my-c-mode-setup)
 
+;; C#
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '(csharp-mode . ("/home/luckymp/.omnisharp/run" "-lsp"))))
+
 ;; Arduino
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
 
