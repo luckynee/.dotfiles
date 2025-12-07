@@ -2,6 +2,7 @@
 export EDITOR=emacs
 
 
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 

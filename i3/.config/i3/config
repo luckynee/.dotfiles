@@ -48,6 +48,10 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
+# Screenshot
+bindsym Print exec flameshot gui
+bindsym Shift+Print exec flameshot gui -d 5000
+
 # Toggle touchpad
 bindsym XF86AudioPrev exec --no-startup-id xinput disable "ELAN0406:00 04F3:3297 Touchpad"
 bindsym XF86AudioNext exec --no-startup-id xinput enable "ELAN0406:00 04F3:3297 Touchpad"

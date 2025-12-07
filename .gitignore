@@ -14,6 +14,8 @@ straight/
 quelpa/
 build/
 emacs/.emacs.d/transient/
+emacs/.emacs.d/tree-sitter/
+
 
 # History, session, and state files
 .emacs.history

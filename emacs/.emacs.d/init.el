@@ -175,6 +175,12 @@
 
 ;; ----------------------------------LANG-SETTINGS------------------------------
 
+;; Remap standard modes to their tree-sitter counterparts
+(add-to-list 'major-mode-remap-alist '(csharp-mode . csharp-ts-mode))
+(add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
+(add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
+(add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
+
 ;; Eglot
 (add-hook 'prog-mode-hook 'eglot-ensure)
 (add-hook 'prog-mode-hook 'whitespace-mode)
@@ -184,10 +190,6 @@
   (setq c-basic-offset 4))
 (add-hook 'c-mode-common-hook 'my-c-mode-setup)
 
-;; C#
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs
-               '(csharp-mode . ("/home/luckymp/.omnisharp/run" "-lsp"))))
 
 ;; Arduino
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
@@ -211,6 +213,13 @@
   :ensure t)
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(dockerfile-mode . ("docker-langserver" "--stdio"))))
+
+(add-hook 'sh-mode-hook
+            (lambda ()
+              (setq indent-tabs-mode nil)
+              (setq sh-basic-offset 4)))
+
+(add-to-list 'auto-mode-alist '("template\\'" . sh-mode))
 
 ;; -------------------------------------KEYMAP------------------------------
 
@@ -296,5 +305,18 @@
   (add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1))))
 )
 
+
+
+;; Tree-sitter recipes & auto-install
+(let ((my-treesit-langs
+       '((c-sharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
+         (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+         (c "https://github.com/tree-sitter/tree-sitter-c")
+         (cpp "https://github.com/tree-sitter/tree-sitter-cpp"))))
+
+  (dolist (lang my-treesit-langs)
+    (add-to-list 'treesit-language-source-alist lang)
+    (unless (treesit-language-available-p (car lang))
+      (treesit-install-language-grammar (car lang)))))
 
 (load-file custom-file)
