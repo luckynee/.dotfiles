@@ -120,6 +120,14 @@
   (define-key paredit-mode-map (kbd "C-c C-e") nil)
 )
 
+;; Multiple cursor
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->"         . mc/mark-next-like-this)
+         ("C-<"         . mc/mark-previous-like-this)
+         ("C-c C-<"     . mc/mark-all-like-this)))
+
 (defun sb/eglot-capf-with-yasnippet ()
   (make-local-variable 'completion-at-point-functions)
   (add-to-list 'completion-at-point-functions #'yasnippet-capf)
