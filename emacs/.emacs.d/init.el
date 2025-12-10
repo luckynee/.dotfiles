@@ -80,6 +80,7 @@
        ("M-s m" . consult-mark)
        ("M-s f" . consult-flymake)
        ("M-s y" . consult-yank-pop)
+       ("M-s i" . consult-imenu)
 )
 )
 
@@ -174,6 +175,8 @@
 (add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Propo-12"))
 
 ;; File Setting
+(global-auto-revert-mode t)
+(add-to-list 'completion-ignored-extensions ".meta")
 
 
 ;; Code setting
