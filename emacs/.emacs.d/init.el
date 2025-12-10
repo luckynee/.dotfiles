@@ -108,6 +108,17 @@
   :ensure t
 )
 
+;; Paredit
+(use-package paredit
+  :ensure t
+  :hook
+  (emacs-lisp-mode . paredit-mode)
+  :config
+  (setq paredit-electric-q t)
+  (define-key paredit-mode-map (kbd "M-s") nil)
+  (define-key paredit-mode-map (kbd "C-c C-e") nil)
+)
+
 (defun sb/eglot-capf-with-yasnippet ()
   (make-local-variable 'completion-at-point-functions)
   (add-to-list 'completion-at-point-functions #'yasnippet-capf)
@@ -150,7 +161,7 @@
 	  initial-scratch-message nil
 	  make-backup-files nil
 	  frame-title-format (list "GOON EMACS 💦  - %b")
-	  dired-listing-itches "-aghov --group-directories-first"
+	  dired-listing-switches "-aghov --group-directories-first"
       dired-dwim-target t
 )
 
@@ -251,6 +262,14 @@
   (start-process "terminal-emulator" nil my/terminal-emulator))
 (global-set-key (kbd "C-c t") 'my/open-terminal-emulator)
 
+;; Kill other buffer
+(defun my/kill-other-buffers ()
+  "Kill all buffer but the current one. Don't mess with specia buffers."
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (unless (or (eql buffer (current-buffer))
+                (not (buffer-file-name buffer)))
+      (kill-buffer buffer))))
 
 ;; -------------------------------------ARDUINO----------------------------
 

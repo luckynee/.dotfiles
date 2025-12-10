@@ -8,14 +8,12 @@
  '(custom-safe-themes
    '("01a9797244146bbae39b18ef37e6f2ca5bebded90d9fe3a2f342a9e863aaa4fd" default))
  '(display-line-numbers-type 'visual)
- '(package-selected-packages
-   '(auctex cape consult corfu dockerfile-mode gruber-darker-theme magit move-text orderless org-modern pdf-tools spinner
-            vertico yaml-mode yasnippet-capf yasnippet-snippets))
+ '(package-selected-packages nil)
  '(safe-local-variable-values
    '((eval setq TeX-master (expand-file-name "buku.tex" (locate-dominating-file default-directory ".git")))))
  '(whitespace-style
-   '(face trailing tabs spaces lines newline missing-newline-at-eof empty indentation space-after-tab space-before-tab
-          space-mark tab-mark)))
+   '(face trailing tabs spaces newline missing-newline-at-eof empty indentation space-after-tab space-before-tab space-mark
+          tab-mark)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
