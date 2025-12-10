@@ -49,3 +49,5 @@ projectile-known-projects.eld
 # OS-specific files
 .DS_Store
 Thumbs.db
+/emacs/.emacs.d/projects
+/emacs/.emacs.d/recentf
