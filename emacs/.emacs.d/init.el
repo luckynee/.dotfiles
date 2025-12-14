@@ -135,6 +135,7 @@
 (with-eval-after-load 'eglot
   (add-hook 'eglot-managed-mode-hook #'sb/eglot-capf-with-yasnippet))
 
+
 ;; -------------------------------Org------------------------
 (setq
  initial-major-mode 'org-mode
@@ -146,7 +147,7 @@
  org-hide-emphasis-markers t
  org-pretty-entities t
  org-log-done 'time
-)
+ )
 
 (require 'org-id)
 (require 'org-tempo)

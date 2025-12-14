@@ -77,6 +77,12 @@ exec_always --no-startup-id "xmodmap -e 'clear Lock' -e 'clear Control' -e 'keyc
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# Mark focused window
+bindsym $mod+Shift+m exec --no-startup-id /home/luckymp/.dotfiles/rofi/mark_window.sh
+
+# Custom Window Switcher (supports Marks)
+bindsym $mod+Tab exec --no-startup-id /home/luckymp/.dotfiles/rofi/rofi_window_marks.py
+
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
@@ -84,6 +90,13 @@ bindcode $mod+40 exec "rofi -modi drun,run,window -show drun -show-icons"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+
+# --- Ensure marks are shown in title bars (usually default, but good to have) ---
+# See https://i3wm.org/docs/userguide.html#_window_marks for more info
+# This line is usually implicitly "yes", but explicitly setting it guarantees it.
+# If your i3 version is very old and doesn't support 'show_marks', you might need to remove this.
+# Modern i3 versions (v4.20+) have it by default.
+show_marks yes
 
 # change focus
 bindsym $mod+j focus left
