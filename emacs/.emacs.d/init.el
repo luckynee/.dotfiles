@@ -276,11 +276,10 @@
 
 ;; Kill other buffer
 (defun my/kill-other-buffers ()
-  "Kill all buffer but the current one. Don't mess with specia buffers."
+  "Kill all buffers except the current one."
   (interactive)
   (dolist (buffer (buffer-list))
-    (unless (or (eql buffer (current-buffer))
-                (not (buffer-file-name buffer)))
+    (unless (eq buffer (current-buffer))
       (kill-buffer buffer))))
 
 ;; -------------------------------------ARDUINO----------------------------
