@@ -203,6 +203,7 @@
 (add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
 (add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
 (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
+(add-to-list 'major-mode-remap-alist '(go-mode . go-ts-mode))
 
 ;; Eglot
 (add-hook 'prog-mode-hook 'eglot-ensure)
@@ -216,6 +217,7 @@
 
 ;; Arduino
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
 
 ;; S-lang mode
 (define-derived-mode slang-mode c-mode "Slang"
@@ -343,7 +345,8 @@
        '((c-sharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
          (yaml "https://github.com/ikatyang/tree-sitter-yaml")
          (c "https://github.com/tree-sitter/tree-sitter-c")
-         (cpp "https://github.com/tree-sitter/tree-sitter-cpp"))))
+         (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+         (go "https://github.com/tree-sitter/tree-sitter-go"))))
 
   (dolist (lang my-treesit-langs)
     (add-to-list 'treesit-language-source-alist lang)
