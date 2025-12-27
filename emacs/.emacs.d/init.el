@@ -75,7 +75,7 @@
   :ensure t
   :bind(
        ("M-s b" . consult-buffer)
-       ("M-s g" . consult-grep)
+       ("M-s g" . consult-ripgrep)
        ("M-s l" . consult-line)
        ("M-s m" . consult-mark)
        ("M-s f" . consult-flymake)
@@ -181,7 +181,7 @@
 (electric-pair-mode 1)
 (toggle-frame-maximized)
 (global-display-line-numbers-mode)
-(add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Propo-12"))
+(add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Propo-8"))
 
 ;; File Setting
 (global-auto-revert-mode t)
@@ -251,6 +251,7 @@
 (global-set-key (kbd "M-p") 'move-text-up)
 (global-set-key (kbd "M-n") 'move-text-down)
 (global-set-key (kbd "C-x C-g") 'find-file-at-point)
+(global-set-key (kbd "C-x n C-f") 'find-name-dired)
 
 ;; Open Dired in root dir
 (global-set-key (kbd "C-x r d")
@@ -350,3 +351,5 @@
       (treesit-install-language-grammar (car lang)))))
 
 (load-file custom-file)
+(load-file "~/.emacs.d/my-plugin/todo.el")
+
