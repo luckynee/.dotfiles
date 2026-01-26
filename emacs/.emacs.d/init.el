@@ -22,10 +22,15 @@
   :ensure t
 )
 
+;; Tramp
+(use-package tramp
+  :ensure t
+ )
+
 ;; Move text
 (use-package move-text
   :ensure t
-)
+  )
 
 ;; Vertico
 (use-package vertico
@@ -205,19 +210,35 @@
 (add-to-list 'major-mode-remap-alist '(yaml-mode . yaml-ts-mode))
 (add-to-list 'major-mode-remap-alist '(go-mode . go-ts-mode))
 
+;; TRAMP
+ (defun my/eglot-ensure-unless-remote ()
+     "Start Eglot unless the file is remote (TRAMP)."
+     (unless (file-remote-p default-directory)
+       (eglot-ensure)))
+
+(tramp-set-completion-function
+ "ssh" (append (tramp-get-completion-function "ssh")
+               (mapcar (lambda (file) `(tramp-parse-sconfig ,file))
+                       (directory-files
+                        "~/.ssh/conf.d/"
+                        'full directory-files-no-dot-files-regexp))))
+
+(setq tramp-ssh-controlmaster-options nil)
+
+;; ----------------------------------------------------------------
+
 ;; Eglot
-(add-hook 'prog-mode-hook 'eglot-ensure)
+(add-hook 'prog-mode-hook 'my/eglot-ensure-unless-remote)
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
 ;; C-like mode
-(defun my-c-mode-setup ()
+(defun my/c-mode-setup ()
   (setq c-basic-offset 4))
-(add-hook 'c-mode-common-hook 'my-c-mode-setup)
+(add-hook 'c-mode-common-hook 'my/c-mode-setup)
 
 
 ;; Arduino
 (add-to-list 'auto-mode-alist '("\\.ino\\'" . c-mode))
-(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
 
 ;; S-lang mode
 (define-derived-mode slang-mode c-mode "Slang"
@@ -245,6 +266,19 @@
               (setq sh-basic-offset 4)))
 
 (add-to-list 'auto-mode-alist '("template\\'" . sh-mode))
+
+;; go
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.mod\\'" . go-mod-ts-mode))
+
+(defun my/go-mode-setup ()
+  (message "Go-ts-mode setup activated!")
+  (setq tab-width 4)
+  (setq indent-tabs-mode t)
+  (setq go-ts-mode-indent-offset 4)
+  (add-hook 'before-save-hook 'eglot-format-buffer nil t))
+
+(add-hook 'go-ts-mode-hook 'my/go-mode-setup)
 
 ;; -------------------------------------KEYMAP------------------------------
 
@@ -285,6 +319,12 @@
     (unless (eq buffer (current-buffer))
       (kill-buffer buffer))))
 
+
+;; Make dired writeable
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "C-c C-e") 'wdired-change-to-wdired-mode))
+
+
 ;; -------------------------------------ARDUINO----------------------------
 
 
@@ -301,7 +341,7 @@
   (setq-default TeX-master nil)
   (add-hook 'LaTeX-mode-hook 'visual-line-mode)
   ;;(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (add-hook 'LaTeX-mode-hook 'eglot-ensure)
+  (add-hook 'LaTeX-mode-hook 'my/eglot-ensure-unless-remote)
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
   (add-hook 'LaTeX-mode-hook (lambda ()
                                (setq TeX-electric-math (cons "$" "$"))))
@@ -341,17 +381,19 @@
 
 
 ;; Tree-sitter recipes & auto-install
-(let ((my-treesit-langs
+(let ((my/treesit-langs
        '((c-sharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
          (yaml "https://github.com/ikatyang/tree-sitter-yaml")
          (c "https://github.com/tree-sitter/tree-sitter-c")
          (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
-         (go "https://github.com/tree-sitter/tree-sitter-go"))))
+         (go "https://github.com/tree-sitter/tree-sitter-go")
+         (gomod "https://github.com/camdencheek/tree-sitter-go-mod"))))
 
-  (dolist (lang my-treesit-langs)
+  (dolist (lang my/treesit-langs)
     (add-to-list 'treesit-language-source-alist lang)
     (unless (treesit-language-available-p (car lang))
       (treesit-install-language-grammar (car lang)))))
+
 
 (load-file custom-file)
 (load-file "~/.emacs.d/my-plugin/todo.el")

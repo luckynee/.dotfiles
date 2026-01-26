@@ -4,9 +4,16 @@
 (setq mc/cmds-to-run-for-all
       '(
         eval-buffer
+        kill-region
+        magit-commit
+        mark-sexp
         multiple-cursors-mode
+        save-some-buffers
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        end-of-buffer
+        magit-copy-buffer-revision
+        transient-quit-one
         ))
